@@ -30,10 +30,13 @@ export const eventHistoryTool = createTool({
         );
       }
 
-      const historyData = await historyResponse.json();
+    const historyData = await historyResponse.json();
+    // if (historyData?.data?.Events && Array.isArray(historyData.data.Events)) {
+    //   historyData.data.Events = historyData.data.Events.slice(0, 10);
+    // }
       return {
-        events: historyData.data.Events || [],
-        births: historyData.data.Births || [],
+        events: historyData.data.Events.slice(0, 10) || [],
+        births: historyData.data.Births.slice(0, 10) || [],
         date: historyData.date || new Date().toISOString().split("T")[0],
       };
     } catch (error) {
